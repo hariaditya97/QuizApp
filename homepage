@@ -1,0 +1,126 @@
+import 'package:flutter/material.dart';
+//import 'quizlist.dart';
+import 'quizbrain.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
+
+final assetsAudioPlayer = AssetsAudioPlayer();
+
+void main() {
+  runApp(QuizPage());
+}
+
+QuizBrain quizBrain = QuizBrain();
+
+class QuizPage extends StatefulWidget {
+  @override
+  _QuizPageState createState() => _QuizPageState();
+}
+
+class _QuizPageState extends State<QuizPage> {
+  int questionNumber = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Color(0xff161516),
+        appBar: AppBar(
+          leading: Icon(Icons.cake),
+          //title: Text("Winne"),
+          backgroundColor: Color(0xff161516),
+        ),
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                height: 60,
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(25, 0, 15, 0),
+                child: Center(
+                  child: Text(
+                    quizBrain.getQuestionText(),
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontFamily: 'MuseoModerno',
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 25,
+              ),
+              FlatButton(
+                onPressed: () {
+                  // User picked TRUE
+                  if (quizBrain.getQuestionAnswer() == true) {
+                    print("User Got Answer Right!");
+                    AssetsAudioPlayer.newPlayer().open(
+                      Audio("assets/audios/correct.wav"),
+                    );
+                  } else {
+                    print("User got it wrong");
+                    AssetsAudioPlayer.newPlayer().open(
+                      Audio("assets/audios/wrong.wav"),
+                    );
+                  }
+                  setState(
+                    () {
+                      quizBrain.nextQuestion();
+                    },
+                  );
+                },
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(20, 80, 20, 20),
+                  padding: EdgeInsets.fromLTRB(120, 60, 120, 60),
+                  color: Color(0xff2f745f),
+                  child: Text(
+                    "True",
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontFamily: 'MuseoModerno'),
+                  ),
+                ),
+              ),
+              FlatButton(
+                onPressed: () {
+                  // User picked FALSE
+                  if (quizBrain.getQuestionAnswer() == false) {
+                    print("User Got Answer Right!");
+                    AssetsAudioPlayer.newPlayer().open(
+                      Audio("assets/audios/correct.wav"),
+                    );
+                  } else {
+                    print("User got it wrong");
+                    AssetsAudioPlayer.newPlayer().open(
+                      Audio("assets/audios/wrong.wav"),
+                    );
+                  }
+                  setState(
+                    () {
+                      quizBrain.nextQuestion();
+                    },
+                  );
+                },
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(20, 40, 20, 40),
+                  padding: EdgeInsets.fromLTRB(115, 60, 115, 60),
+                  color: Color(0xff852246),
+                  child: Text(
+                    "False",
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontFamily: 'MuseoModerno'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
