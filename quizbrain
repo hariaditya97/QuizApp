@@ -1,0 +1,31 @@
+import 'quizlist.dart';
+
+class QuizBrain {
+  int _questionNumber = 0;
+
+  List<Question> _questionBank = [
+    Question(ques: 'Nishant\'s star sign is Capricorn', ans: false),
+    Question(ques: 'Nishant regularly engages in petty theft', ans: true),
+    Question(ques: 'Nishant has blacked out on multiple occasions', ans: true),
+    Question(
+        ques: 'Nishant has been caught stealing Chips and Coke', ans: true),
+    Question(ques: 'Nishant smoked his first joint in 10th grade', ans: false),
+    Question(ques: 'Nishant has a crush on Gulshan', ans: false),
+    Question(
+        ques: 'Nishant\'s favourite band is The Rolling Stones ', ans: true),
+  ];
+
+  String getQuestionText() {
+    return _questionBank[_questionNumber].questionText;
+  }
+
+  bool getQuestionAnswer() {
+    return _questionBank[_questionNumber].questionAnswer;
+  }
+
+  void nextQuestion() {
+    if (_questionNumber < _questionBank.length - 1) {
+      _questionNumber++;
+    }
+  }
+}
